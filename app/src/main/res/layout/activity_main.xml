@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:hint="СЮДА ЗАГОЛОВОК"
+                    android:hint="@string/hint_title"
                     android:ems="10"
                     android:id="@+id/title"
                     android:layout_weight="0.06" />
@@ -39,14 +39,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:hint="СЮДА ТЕКСТ"
+                    android:hint="@string/hint_text"
                     android:ems="10"
                     android:id="@+id/description"
                     android:layout_weight="0.06"
                     android:layout_marginBottom="20dip"/>
 
                 <TextView
-                    android:text="ВО СКОЛЬКО НАПОМНИТЬ?"
+                    android:text="@string/choose_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -60,10 +60,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
+                    android:timePickerMode="clock"
                     android:id="@+id/timeStart" />
 
                 <TextView
-                    android:text="ВЫБЕРИ СУДНЫЙ ДЕНЬ"
+                    android:text="@string/choose_day"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
@@ -75,6 +76,7 @@
                 <DatePicker
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:datePickerMode="calendar"
                     android:id="@+id/dateAlarm" />
 
                 <Button

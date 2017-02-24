@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setCustomActionBar();
+        //setCustomActionBar();
+
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
+        description.setVisibility(View.GONE);
         timeStart = (TimePicker) findViewById(R.id.timeStart);
         timeStart.setIs24HourView(true);
         setupUI(timeStart);
@@ -73,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         dateDate = (DatePicker) findViewById(R.id.dateAlarm);
         setupUI(dateDate);
         ok = (Button) findViewById(R.id.good);
+        getSupportActionBar().hide();
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
                 1);
@@ -95,11 +98,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case 1: {if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getCalendar();
-            } else {
-                Toast.makeText(MainActivity.this, "Permission denied to read your Calendar", Toast.LENGTH_SHORT).show();
-                onBackPressed();
+                } else {
+                    Toast.makeText(MainActivity.this, getResources().getString(R.string.no_permission), Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
                 return;
             }
@@ -138,11 +142,15 @@ public class MainActivity extends AppCompatActivity {
         int hourOfDay = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             hourOfDay = timeStart.getHour();
-        } else {hourOfDay = timeStart.getCurrentHour();}
+        } else {
+            hourOfDay = timeStart.getCurrentHour();
+        }
         int minute = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             minute = timeStart.getMinute();
-        } else {minute = timeStart.getCurrentMinute();}
+        } else {
+            minute = timeStart.getCurrentMinute();
+        }
         calendar.set(java.util.Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(java.util.Calendar.MINUTE, minute);
         return calendar.getTimeInMillis();
@@ -172,17 +180,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void runForest(View v) {
         setReminder(createEvent(mCalendar.id), 1);
+        String locale = getApplicationContext().getResources().getConfiguration().locale.getDisplayName();
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle("ЕЩЁ ОДНО НАПОМИНАНИЕ?");
-        dialog.setPositiveButton("ДА", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int which){
+        dialog.setTitle(getResources().getString(R.string.more));
+        dialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
                 finish();
                 startActivity(getIntent());
             }
-        }).setNegativeButton("НЕТ", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int which){
+        }).setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
                 onBackPressed();
                 finish();
             }

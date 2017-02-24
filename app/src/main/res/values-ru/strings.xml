@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">НАГАДУВАННЯ</string>
+    <string name="more">ЕЩЁ ОДНО НАПОМИНАНИЕ?</string>
+    <string name="yes">ДА</string>
+    <string name="no">НЕТ</string>
+    <string name="no_permission">Не получено разрешение для доступа к календарю.</string>
+    <string name="barname">НАПОМИНАЛКА</string>
+    <string name="hint_title">СЮДА НАЗВАНИЕ</string>
+    <string name="hint_text">СЮДА ОПИСАНИЕ</string>
+    <string name="choose_time">ВЫБЕРИТЕ ВРЕМЯ</string>
+    <string name="choose_day">ВЫБЕРИТЕ ДАТУ</string>
+</resources>
