@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">НАГАДУВАННЯ</string>
     <string name="more">ІЩЕ ОДНЕ НАГАДУВАННЯ?</string>
     <string name="yes">ТАК</string>
     <string name="no">НІ</string>

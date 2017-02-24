@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setCustomActionBar();
 
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
@@ -81,19 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 1);
 
     }
-
-    private void setCustomActionBar() {
-        ActionBar mActionBar = getSupportActionBar();
-        mActionBar.setDisplayShowHomeEnabled(false);
-        mActionBar.setDisplayShowTitleEnabled(false);
-        LayoutInflater mInflater = LayoutInflater.from(this);
-        View mCustomView = mInflater.inflate(R.layout.custom_title_bar, null);
-        mActionBar.setCustomView(mCustomView);
-        mActionBar.setDisplayShowCustomEnabled(true);
-        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#cecccc")));
-
-    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
