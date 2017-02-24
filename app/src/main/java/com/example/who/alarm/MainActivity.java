@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private long createEvent(long calendarID) throws SecurityException {
         ContentResolver cr = getContentResolver();
         ContentValues contentValues = new ContentValues();
@@ -129,15 +128,21 @@ public class MainActivity extends AppCompatActivity {
         return id;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     private long getDateStartMillis() {
         java.util.Calendar calendar = java.util.Calendar.getInstance();
         int year = dateDate.getYear();
         int monthOfYear = dateDate.getMonth();
         int dayOfMonth = dateDate.getDayOfMonth();
         calendar.set(year, monthOfYear, dayOfMonth);
-        int hourOfDay = timeStart.getHour();
-        int minute = timeStart.getMinute();
+        int hourOfDay = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            hourOfDay = timeStart.getHour();
+        } else {hourOfDay = timeStart.getCurrentHour();}
+        int minute = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            minute = timeStart.getMinute();
+        } else {minute = timeStart.getCurrentMinute();}
         calendar.set(java.util.Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(java.util.Calendar.MINUTE, minute);
         return calendar.getTimeInMillis();
@@ -165,10 +170,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void runForest(View v) {
         setReminder(createEvent(mCalendar.id), 1);
-        //Toast.makeText(MainActivity.this, "ВСЕ ДОБРЕ, Я ТЕБЕ КОХАЮ!", Toast.LENGTH_LONG).show();
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle("ЕЩЁ ОДНО НАПОМИНАНИЕ?");
         dialog.setPositiveButton("ДА", new DialogInterface.OnClickListener()
