@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         setReminder(createEvent(mCalendar.id), 1);
         //Toast.makeText(MainActivity.this, "ВСЕ ДОБРЕ, Я ТЕБЕ КОХАЮ!", Toast.LENGTH_LONG).show();
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle("УЩЁ ОДНО НАПОМИНАНИЕ?");
+        dialog.setTitle("ЕЩЁ ОДНО НАПОМИНАНИЕ?");
         dialog.setPositiveButton("ДА", new DialogInterface.OnClickListener()
         {
             public void onClick(DialogInterface dialog, int which){
