@@ -8,5 +8,9 @@
     <string name="hint_title">INPUT TITLE</string>
     <string name="hint_text">DESCRIPTION</string>
     <string name="choose_time">CHOOSE THE TIME</string>
+    <string name="choose__time_button">click to choose the time</string>
     <string name="choose_day">CHOOSE THE DATE</string>
+    <string name="choose_date_button">click to choose the date</string>
+    <string name="confirm_button">CONFIRM?</string>
+    <string name="in_the_end">Chosen date and time</string>
 </resources>

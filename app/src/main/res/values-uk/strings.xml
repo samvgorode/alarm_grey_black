@@ -8,5 +8,10 @@
     <string name="hint_title">СЮДИ НАЗВУ</string>
     <string name="hint_text">СЮДИ ОПИС</string>
     <string name="choose_time">ОБЕРІТЬ ЧАС</string>
+    <string name="choose__time_button">натисніть для вибору часу</string>
     <string name="choose_day">ОБЕРІТЬ ДАТУ</string>
+    <string name="choose_date_button">натисніть для вибору дати</string>
+    <string name="confirm_button">ПІДТВЕРДИТИ?</string>
+    <string name="in_the_end">Обрано дату та час</string>
+
 </resources>

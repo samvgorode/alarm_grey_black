@@ -2,6 +2,9 @@ package com.example.who.alarm;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -14,6 +17,7 @@ import android.os.Build;
 import android.provider.CalendarContract;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,11 +40,15 @@ import android.widget.Toast;
 import com.example.who.alarm.utils.Calendar;
 import com.example.who.alarm.utils.Event;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
+import java.util.TimeZone;
 
+import static android.R.attr.cacheColorHint;
 import static android.R.attr.id;
 import static java.security.AccessController.getContext;
 
@@ -48,13 +56,24 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     Calendar mCalendar;
+    java.util.Calendar calendar;
     TextView timeFromText;
     TextView dateText;
     EditText title;
     EditText description;
-    TimePicker timeStart;
-    DatePicker dateDate;
+    //TimePicker timeStart;
+    Button timeStart;
+    //DatePicker dateDate;
+    Button dateDate;
     Button ok;
+    TextView dateTimeParse;
+    int DIALOG_TIME = 1;
+    int myHour;
+    int myMinute;
+    int DIALOG_DATE = 2;
+    int myYear;
+    int myMonth;
+    int myDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +83,46 @@ public class MainActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
         description.setVisibility(View.GONE);
-        timeStart = (TimePicker) findViewById(R.id.timeStart);
-        timeStart.setIs24HourView(true);
+//        timeStart = (TimePicker) findViewById(R.id.timeStart);
+//        timeStart.setIs24HourView(true);
+        timeStart = (Button) findViewById(R.id.dialog_time);
         setupUI(timeStart);
         timeFromText = (TextView) findViewById(R.id.timeFromText);
         setupUI(timeFromText);
         dateText = (TextView) findViewById(R.id.dateText);
         setupUI(dateText);
-        dateDate = (DatePicker) findViewById(R.id.dateAlarm);
-        setupUI(dateDate);
+//        dateDate = (DatePicker) findViewById(R.id.dateAlarm);
+//        setupUI(dateDate);
+        dateDate = (Button) findViewById(R.id.dialog_date);
         ok = (Button) findViewById(R.id.good);
+        dateTimeParse = (TextView) findViewById(R.id.date_time_parse);
+        getCurrentDate();
+        getParsedData(myYear, myMonth, myDay, myHour, myMinute);
         getSupportActionBar().hide();
         ActivityCompat.requestPermissions(MainActivity.this,
                 new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR},
                 1);
 
+    }
+    private void getCurrentDate(){
+        calendar = java.util.Calendar.getInstance();
+        myYear = calendar.get(java.util.Calendar.YEAR);
+        myMonth = calendar.get(java.util.Calendar.MONTH);
+        myDay = calendar.get(java.util.Calendar.DATE);
+        myHour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
+        myMinute = calendar.get(java.util.Calendar.MINUTE);
+    }
+
+    private void getParsedData(int myYear, int myMonth, int myDay, int myHour, int myMinute) {
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        calendar.set(java.util.Calendar.YEAR, myYear);
+        calendar.set(java.util.Calendar.MONTH, myMonth);
+        calendar.set(java.util.Calendar.DATE, myDay);
+        calendar.set(java.util.Calendar.HOUR_OF_DAY, myHour);
+        calendar.set(java.util.Calendar.MINUTE, myMinute);
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM dd, ' ' yyyy ' ' HH:mm:ss");
+        String strDate = format.format(calendar.getTime());
+        dateTimeParse.setText(strDate);
     }
 
     @Override
@@ -119,24 +163,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+//    private long getDateStartMillis() {
+//        calendar = java.util.Calendar.getInstance();
+//        int year = dateDate.getYear();
+//        int monthOfYear = dateDate.getMonth();
+//        int dayOfMonth = dateDate.getDayOfMonth();
+//        calendar.set(year, monthOfYear, dayOfMonth);
+//        int hourOfDay = 0;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//            hourOfDay = timeStart.getHour();
+//        } else {
+//            hourOfDay = timeStart.getCurrentHour();
+//        }
+//        int minute = 0;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+//            minute = timeStart.getMinute();
+//        } else {
+//            minute = timeStart.getCurrentMinute();
+//        }
+//        calendar.set(java.util.Calendar.HOUR_OF_DAY, hourOfDay);
+//        calendar.set(java.util.Calendar.MINUTE, minute);
+//        return calendar.getTimeInMillis();
+//    }
+
     private long getDateStartMillis() {
-        java.util.Calendar calendar = java.util.Calendar.getInstance();
-        int year = dateDate.getYear();
-        int monthOfYear = dateDate.getMonth();
-        int dayOfMonth = dateDate.getDayOfMonth();
+        int year = myYear;
+        int monthOfYear = myMonth;
+        int dayOfMonth = myDay;
         calendar.set(year, monthOfYear, dayOfMonth);
         int hourOfDay = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            hourOfDay = timeStart.getHour();
-        } else {
-            hourOfDay = timeStart.getCurrentHour();
-        }
+        hourOfDay = myHour;
         int minute = 0;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            minute = timeStart.getMinute();
-        } else {
-            minute = timeStart.getCurrentMinute();
-        }
+        minute = myMinute;
         calendar.set(java.util.Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(java.util.Calendar.MINUTE, minute);
         return calendar.getTimeInMillis();
@@ -166,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void runForest(View v) {
         setReminder(createEvent(mCalendar.id), 1);
-        String locale = getApplicationContext().getResources().getConfiguration().locale.getDisplayName();
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
         dialog.setTitle(getResources().getString(R.string.more));
         dialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -203,4 +260,38 @@ public class MainActivity extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
+
+    public void showTimeDialog(View v){this.showDialog(DIALOG_TIME);}
+    public void showDateDialog(View v){this.showDialog(DIALOG_DATE);}
+    protected Dialog onCreateDialog(int id) {
+        if (id == DIALOG_TIME) {
+            TimePickerDialog tpd = new TimePickerDialog(this, myCallBackTime, myHour, myMinute, true);
+            return tpd;
+        }
+        else if (id == DIALOG_DATE) {
+            DatePickerDialog tpd = new DatePickerDialog(this, myCallBackDate, myYear, myMonth, myDay);
+            return tpd;
+        }
+
+        return super.onCreateDialog(id);
+    }
+
+    TimePickerDialog.OnTimeSetListener myCallBackTime = new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            myHour = hourOfDay;
+            myMinute = minute;
+            getParsedData(myYear, myMonth, myDay, hourOfDay, minute );
+        }
+    };
+
+    DatePickerDialog.OnDateSetListener myCallBackDate = new DatePickerDialog.OnDateSetListener() {
+
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            myYear = year;
+            myMonth = monthOfYear;
+            myDay = dayOfMonth;
+            getParsedData(year, monthOfYear, dayOfMonth, myHour, myMinute );
+        }
+    };
 }

@@ -15,7 +15,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -51,17 +54,27 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:id="@+id/timeFromText"
-                    style="@android:style/Widget.TextView.PopupMenu"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:layout_weight="0.06"
                     android:layout_marginBottom="20dip"/>
                     android:layout_marginTop="20dip"/>
 
-                <TimePicker
+                <!--<TimePicker-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:focusable="true"-->
+                    <!--android:timePickerMode="clock"-->
+                    <!--android:id="@+id/timeStart" />-->
+
+                <Button
+                    android:text="@string/choose__time_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="true"
-                    android:timePickerMode="clock"
-                    android:id="@+id/timeStart" />
+                    android:background="@drawable/mybuttom"
+                    android:textColor="#FFF5E8"
+                    android:id="@+id/dialog_time"
+                    android:onClick="showTimeDialog"
+                    android:layout_weight="0.06" />
 
                 <TextView
                     android:text="@string/choose_day"
@@ -69,21 +82,64 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:id="@+id/dateText"
-                    style="@android:style/Widget.TextView.PopupMenu"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:layout_marginBottom="20dip"
                     android:layout_marginTop="20dip"/>
 
-                <DatePicker
+                <!--<DatePicker-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:datePickerMode="calendar"-->
+                    <!--android:id="@+id/dateAlarm" />-->
+
+                <Button
+                    android:text="@string/choose_date_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:datePickerMode="calendar"
-                    android:id="@+id/dateAlarm" />
+                    android:background="@drawable/mybuttom"
+                    android:textColor="#FFF5E8"
+                    android:id="@+id/dialog_date"
+                    android:onClick="showDateDialog"
+                    android:layout_weight="0.06" />
+
+                <TextView
+                    android:text="@string/in_the_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/textView2"
+                    android:layout_weight="0.06"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginTop="20dip"
+                    android:textSize="18sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                <TextView
+                    android:text="nothing selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/date_time_parse"
+                    android:layout_weight="0.06"
+                    android:layout_marginBottom="10dip"
+                    android:textSize="20sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                <TextView
+                    android:text="@string/confirm_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/confirm"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginTop="20dip"/>
 
                 <Button
                     android:text="OK"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#09000a"
+                    android:background="@drawable/mybuttom"
                     android:textColor="#FFF5E8"
                     android:id="@+id/good"
                     android:onClick="runForest"/>
