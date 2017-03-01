@@ -10,47 +10,26 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.CalendarContract;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.who.alarm.utils.Calendar;
-import com.example.who.alarm.utils.Event;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-import java.util.StringTokenizer;
-import java.util.TimeZone;
-
-import static android.R.attr.cacheColorHint;
-import static android.R.attr.id;
-import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,16 +40,12 @@ public class MainActivity extends AppCompatActivity {
     TextView dateText;
     EditText title;
     EditText description;
-    //TimePicker timeStart;
     Button timeStart;
-    //DatePicker dateDate;
     Button dateDate;
     Button ok;
     TextView dateTimeParse;
-    int DIALOG_TIME = 1;
     int myHour;
     int myMinute;
-    int DIALOG_DATE = 2;
     int myYear;
     int myMonth;
     int myDay;
@@ -83,19 +58,18 @@ public class MainActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
         description.setVisibility(View.GONE);
-//        timeStart = (TimePicker) findViewById(R.id.timeStart);
-//        timeStart.setIs24HourView(true);
         timeStart = (Button) findViewById(R.id.dialog_time);
         setupUI(timeStart);
         timeFromText = (TextView) findViewById(R.id.timeFromText);
         setupUI(timeFromText);
         dateText = (TextView) findViewById(R.id.dateText);
         setupUI(dateText);
-//        dateDate = (DatePicker) findViewById(R.id.dateAlarm);
-//        setupUI(dateDate);
         dateDate = (Button) findViewById(R.id.dialog_date);
+        setupUI(dateDate);
         ok = (Button) findViewById(R.id.good);
+        setupUI(ok);
         dateTimeParse = (TextView) findViewById(R.id.date_time_parse);
+        setupUI(dateTimeParse);
         getCurrentDate();
         getParsedData(myYear, myMonth, myDay, myHour, myMinute);
         getSupportActionBar().hide();
@@ -104,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
                 1);
 
     }
-    private void getCurrentDate(){
+
+    private void getCurrentDate() {
         calendar = java.util.Calendar.getInstance();
         myYear = calendar.get(java.util.Calendar.YEAR);
         myMonth = calendar.get(java.util.Calendar.MONTH);
@@ -120,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         calendar.set(java.util.Calendar.DATE, myDay);
         calendar.set(java.util.Calendar.HOUR_OF_DAY, myHour);
         calendar.set(java.util.Calendar.MINUTE, myMinute);
-        SimpleDateFormat format = new SimpleDateFormat("EEEE, MMMM dd, ' ' yyyy ' ' HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, dd MMMM, yyyy '\n' HH:mm:ss");
         String strDate = format.format(calendar.getTime());
         dateTimeParse.setText(strDate);
     }
@@ -161,30 +136,6 @@ public class MainActivity extends AppCompatActivity {
         long id = Integer.parseInt(uri.getLastPathSegment());
         return id;
     }
-
-
-//    private long getDateStartMillis() {
-//        calendar = java.util.Calendar.getInstance();
-//        int year = dateDate.getYear();
-//        int monthOfYear = dateDate.getMonth();
-//        int dayOfMonth = dateDate.getDayOfMonth();
-//        calendar.set(year, monthOfYear, dayOfMonth);
-//        int hourOfDay = 0;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//            hourOfDay = timeStart.getHour();
-//        } else {
-//            hourOfDay = timeStart.getCurrentHour();
-//        }
-//        int minute = 0;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-//            minute = timeStart.getMinute();
-//        } else {
-//            minute = timeStart.getCurrentMinute();
-//        }
-//        calendar.set(java.util.Calendar.HOUR_OF_DAY, hourOfDay);
-//        calendar.set(java.util.Calendar.MINUTE, minute);
-//        return calendar.getTimeInMillis();
-//    }
 
     private long getDateStartMillis() {
         int year = myYear;
@@ -261,26 +212,25 @@ public class MainActivity extends AppCompatActivity {
                 activity.getCurrentFocus().getWindowToken(), 0);
     }
 
-    public void showTimeDialog(View v){this.showDialog(DIALOG_TIME);}
-    public void showDateDialog(View v){this.showDialog(DIALOG_DATE);}
-    protected Dialog onCreateDialog(int id) {
-        if (id == DIALOG_TIME) {
-            TimePickerDialog tpd = new TimePickerDialog(this, myCallBackTime, myHour, myMinute, true);
-            return tpd;
+    public void showTimeDialog(View v) {
+        if (v == timeStart) {
+            TimePickerDialog tpd = new TimePickerDialog(this, R.style.DialogTheme, myCallBackTime, myHour, myMinute, true);
+            tpd.show();
         }
-        else if (id == DIALOG_DATE) {
-            DatePickerDialog tpd = new DatePickerDialog(this, myCallBackDate, myYear, myMonth, myDay);
-            return tpd;
-        }
+    }
 
-        return super.onCreateDialog(id);
+    public void showDateDialog(View v) {
+        if (v == dateDate) {
+            DatePickerDialog dpd = new DatePickerDialog(this, R.style.DialogTheme, myCallBackDate, myYear, myMonth, myDay);
+            dpd.show();
+        }
     }
 
     TimePickerDialog.OnTimeSetListener myCallBackTime = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             myHour = hourOfDay;
             myMinute = minute;
-            getParsedData(myYear, myMonth, myDay, hourOfDay, minute );
+            getParsedData(myYear, myMonth, myDay, hourOfDay, minute);
         }
     };
 
@@ -291,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
             myYear = year;
             myMonth = monthOfYear;
             myDay = dayOfMonth;
-            getParsedData(year, monthOfYear, dayOfMonth, myHour, myMinute );
+            getParsedData(year, monthOfYear, dayOfMonth, myHour, myMinute);
         }
     };
 }

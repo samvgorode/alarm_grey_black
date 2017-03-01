@@ -5,8 +5,8 @@
     <string name="no">NO</string>
     <string name="no_permission">Permission denied to read your Calendar</string>
     <string name="barname">REMINDER</string>
-    <string name="hint_title">INPUT TITLE</string>
-    <string name="hint_text">DESCRIPTION</string>
+    <string name="hint_title">INPUT TITLE HERE</string>
+    <string name="hint_text">INPUT DESCRIPTION HERE</string>
     <string name="choose_time">CHOOSE THE TIME</string>
     <string name="choose__time_button">click to choose the time</string>
     <string name="choose_day">CHOOSE THE DATE</string>

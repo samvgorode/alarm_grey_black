@@ -5,12 +5,12 @@
     <string name="no">НЕТ</string>
     <string name="no_permission">Не получено разрешение для доступа к календарю.</string>
     <string name="barname">НАПОМИНАЛКА</string>
-    <string name="hint_title">СЮДА НАЗВАНИЕ</string>
-    <string name="hint_text">СЮДА ОПИСАНИЕ</string>
+    <string name="hint_title">ВВЕДИТЕ НАЗВАНИЕ МЕРОПРИЯТИЯ</string>
+    <string name="hint_text">ВВЕДИТЕ ОПИСАНИЕ МЕРОПРИЯТИЯ</string>
     <string name="choose_time">ВЫБЕРИТЕ ВРЕМЯ</string>
-    <string name="choose__time_button">нажми для выбора времени</string>
+    <string name="choose__time_button">нажмите для выбора времени</string>
     <string name="choose_day">ВЫБЕРИТЕ ДАТУ</string>
-    <string name="choose_date_button">нажми для выбора даты</string>
+    <string name="choose_date_button">нажмите для выбора даты</string>
     <string name="confirm_button">ПОДТВЕРДИТЬ?</string>
     <string name="in_the_end">Вы выбрали дату и время</string>
 

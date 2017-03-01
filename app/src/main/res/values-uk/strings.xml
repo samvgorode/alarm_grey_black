@@ -5,8 +5,8 @@
     <string name="no">НІ</string>
     <string name="no_permission">Не надано дозволу для доступу до календаря.</string>
     <string name="barname">НАГАДУВАННЯ</string>
-    <string name="hint_title">СЮДИ НАЗВУ</string>
-    <string name="hint_text">СЮДИ ОПИС</string>
+    <string name="hint_title">ВВЕДІТЬ НАЗВУ НАГАДУВАННЯ</string>
+    <string name="hint_text">СЮДИ ОПИС НАГАДУВАННЯ</string>
     <string name="choose_time">ОБЕРІТЬ ЧАС</string>
     <string name="choose__time_button">натисніть для вибору часу</string>
     <string name="choose_day">ОБЕРІТЬ ДАТУ</string>
