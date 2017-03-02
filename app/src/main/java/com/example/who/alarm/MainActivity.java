@@ -3,7 +3,6 @@ package com.example.who.alarm;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         title = (EditText) findViewById(R.id.title);
         description = (EditText) findViewById(R.id.description);
         description.setVisibility(View.GONE);
@@ -174,8 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void runForest(View v) {
-        setReminder(createEvent(mCalendar.id), 1);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this, R.style.DialogTheme);
         dialog.setTitle(getResources().getString(R.string.more));
         dialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
@@ -191,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.create();
         dialog.show();
+        setReminder(createEvent(mCalendar.id), 1);
     }
 
     public void setupUI(View view) {
